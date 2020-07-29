@@ -81,23 +81,24 @@ const mutations = {
                 prisesList.push(item.min_price)
             }
         })
-
-        prisesList = [...prisesList.sort( (a, b) => a - b )]
-        reviewsList = [...prisesList.sort( (a, b) => a - b )]
+        prisesList = prisesList.sort( (a, b) => a - b )
+        reviewsList = reviewsList.sort( (a, b) => a - b )
         state.hotelsList = hotels
         state.filtersHotelsList = hotels
         state.countries = countriesList
         state.types = typesList
-        state.reviews_amounts = reviewsList
-        state.min_prices = prisesList
-        state.filters.min_prices = prisesList.reverse()[0]
+        state.reviews_amounts = reviewsList.reverse()
+        state.min_prices = prisesList.reverse()
+        state.filters.min_prices = prisesList[0]
         state.pagination.total_pages = hotels.length === 0 ? 1 : Math.ceil(hotels.length / 3)
     },
     setNewFilter (state, payload) {
+        console.log(payload)
         state.filters[payload.filterName] = payload.filterValue
     },
     setResetFilter (state) {
         state.filters = {...defaultFilters}
+        state.filters.min_prices = state.min_prices[0]
         state.pagination = {...defaultPagination}
         state.pagination.total_pages = state.hotelsList.length === 0 ? 1 : Math.ceil(state.hotelsList.length / 3)
         state.filtersHotelsList = [...state.hotelsList]
@@ -115,10 +116,10 @@ const mutations = {
     setApplyFilter (state) {
         let newHotels = [...state.hotelsList]
         if (state.filters.country.length > 0) {
-            newHotels = [...newHotels.filter((i) => i.country === state.filters.country)]
+            newHotels = newHotels.filter((i) => i.country === state.filters.country)
         }
         if (state.filters.type.length > 0) {
-            newHotels = [...newHotels.filter((i) => state.filters.type.includes(i.type))]
+            newHotels = newHotels.filter((i) => state.filters.type.includes(i.type))
         }
         if (state.filters.rating.length > 0) {
             let hotelRatingArr = []
@@ -127,12 +128,14 @@ const mutations = {
                     hotel.rating >= Number(rating) && hotel.rating <= Number(rating) + 0.9999 && hotelRatingArr.push(hotel)
                 })
             })
-            newHotels = [...hotelRatingArr]
+            newHotels = hotelRatingArr
         }
         if (state.filters.reviews_amount !== 0) {
-            newHotels = [...newHotels.filter((i) => i.reviews_amount > state.filters.reviews_amount)]
+            newHotels = newHotels.filter((i) => i.reviews_amount >= state.filters.reviews_amount)
         }
-        newHotels = [...newHotels.filter((i) => i.min_price <= state.filters.min_price)]
+        if(state.filters.min_price !== 0) {
+            newHotels = newHotels.filter((i) => i.min_price <= state.filters.min_price)
+        }
         state.pagination.total_pages = newHotels.length === 0 ? 1 : Math.ceil(newHotels.length / 3)
         state.pagination.page = 1
         state.filtersHotelsList = newHotels

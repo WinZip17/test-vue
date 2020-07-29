@@ -45,7 +45,6 @@
             <a-input-number
                     class='w-100'
                     id="inputNumber"
-                    :default-value="0"
                     :value="filters.reviews_amount"
                     :min="0"
                     :max="reviews_amounts.length > 0 ? reviews_amounts[0] : 0"
@@ -54,14 +53,13 @@
         </div>
         <div class='w-100 flex-column mb-4'>
             <p>Цена до:</p>
-            <div class='w-100 flex-row mb-4'>
+            <div class='w-100 flex-row mb-4' v-if="min_prices">
                 <a-slider
                         v-if="min_prices.length > 0"
                         id="test"
                         class="d-block"
                         :min="min_prices.length > 0 ? min_prices[min_prices.length - 1] : 0"
                         :max="min_prices.length > 0 ? min_prices[0] : 0"
-                        :value="filters.min_price"
                         @change="onChangeMinPrice"
                         :default-value="min_prices[0]"
                 />

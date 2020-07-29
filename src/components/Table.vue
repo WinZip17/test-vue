@@ -57,7 +57,8 @@ export default {
 <style scoped>
 .table {
   padding: 10px;
-
 }
-
+th {
+  background-color: silver;
+}
 </style>

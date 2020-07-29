@@ -2,16 +2,20 @@
   "name": "vue-test",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://winzip17.github.io/test-vue/",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "predeploy": "vue-cli-service build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "ant-design-vue": "^1.6.4",
     "bootstrap": "^4.5.0",
     "bootstrap-vue": "^2.15.0",
     "core-js": "^3.6.5",
+    "gh-pages": "^3.1.0",
     "lodash": "^4.17.19",
     "vue": "^2.6.11",
     "vuex": "^3.5.1"
