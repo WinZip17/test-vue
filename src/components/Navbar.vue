@@ -1,6 +1,6 @@
 <template>
     <div class="navbar">
-        <a-button type="primary" class='mb-4' v-on:click="resetFilter">
+        <a-button type="primary" class='mb-4' @click="resetFilter">
             Очистить фильтр
         </a-button>
         <div class='w-100 flex-column mb-4'>
@@ -66,7 +66,7 @@
             </div>
         </div>
 
-        <a-button type="primary" v-on:click="applyFilter">
+        <a-button type="primary" @click="applyFilter">
             Применить фильр
         </a-button>
     </div>
@@ -76,7 +76,6 @@
   import Vue from 'vue'
   import {Button} from 'ant-design-vue';
   import {mapState} from "vuex";
-  // import debounce from "lodash/debounce";
 
   Vue.use(Button);
 
@@ -111,7 +110,6 @@
       },
       onChangeMinPrice(value) {
         this.$store.dispatch('setFilter', {filterName: 'min_price', filterValue: value})
-        // debounce(() => this.$store.dispatch('setFilter', {filterName: 'min_price', filterValue: value}), 100)
       }
     },
     created: function () {
@@ -122,7 +120,6 @@
 
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     .navbar {
         padding: 10px;
@@ -130,6 +127,5 @@
         display: flex;
         flex-direction: column;
         background-color: darkgray;
-
     }
 </style>
