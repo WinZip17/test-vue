@@ -14,6 +14,9 @@ export default {
   components: {
     Table,
     Navbar
+  },
+  created: function () {
+    this.$store.dispatch('getAllHotels')
   }
 }
 </script>

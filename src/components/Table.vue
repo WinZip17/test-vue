@@ -36,6 +36,7 @@
 <script>
 import {mapState} from "vuex";
 import chunk from "lodash-es/chunk"
+import myMixin from "../myMixin"
 
 export default {
   computed: mapState({
@@ -51,6 +52,7 @@ export default {
       this.$store.dispatch('previousPage', page)
     }
   },
+  mixins: [myMixin]
 }
 </script>
 
@@ -58,11 +60,9 @@ export default {
 .table {
   padding: 0 10px 10px;
 }
-
 table {
   border: #2c3e50 solid 2px;
 }
-
 th {
   background-color: silver;
 }

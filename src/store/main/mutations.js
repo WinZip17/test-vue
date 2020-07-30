@@ -33,14 +33,22 @@ const mutations = {
         state.reviews_amounts = reviewsList.reverse()
         state.min_prices = prisesList.reverse()
         state.filters.min_prices = prisesList[0]
+        state.min_price_root = prisesList[0]
         state.pagination.total_pages = hotels.length === 0 ? 1 : Math.ceil(hotels.length / 3)
     },
     setNewFilter (state, payload) {
+        // let newFilter = {...state.filters}
+        // newFilter[payload.filterName] = payload.filterValue
+        // state.filters = newFilter
+        if(payload.filterName === "min_price") {
+            state.min_price_root = payload.filterValue
+        }
         state.filters[payload.filterName] = payload.filterValue
     },
     setResetFilter (state) {
         state.filters = {...defaultFilters}
         state.filters.min_prices = state.min_prices[0]
+        state.min_price_root = state.min_prices[0]
         state.pagination = {...defaultPagination}
         state.pagination.total_pages = state.hotelsList.length === 0 ? 1 : Math.ceil(state.hotelsList.length / 3)
         state.filtersHotelsList = [...state.hotelsList]

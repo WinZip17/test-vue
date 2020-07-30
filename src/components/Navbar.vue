@@ -61,6 +61,7 @@
                         :min="min_prices.length > 0 ? min_prices[min_prices.length - 1] : 0"
                         :max="min_prices.length > 0 ? min_prices[0] : 0"
                         @change="onChangeMinPrice"
+                        :value="min_price_root"
                         :default-value="min_prices[0]"
                 />
             </div>
@@ -78,7 +79,6 @@
   import {mapState} from "vuex";
 
   Vue.use(Button);
-
   export default {
     computed: mapState({
       hotelsList: state => state.main.hotelsList,
@@ -87,6 +87,7 @@
       ratings: state => state.main.ratings,
       reviews_amounts: state => state.main.reviews_amounts,
       min_prices: state => state.main.min_prices,
+      min_price_root: state => state.main.min_price_root,
       filters: state => state.main.filters,
     }),
     methods: {
@@ -111,9 +112,6 @@
       onChangeMinPrice(value) {
         this.$store.dispatch('setFilter', {filterName: 'min_price', filterValue: value})
       }
-    },
-    created: function () {
-      this.$store.dispatch('getAllHotels')
     }
 
   }

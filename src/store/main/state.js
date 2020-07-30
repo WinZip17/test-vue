@@ -18,7 +18,8 @@ const state = () => ({
         rating: [],
         reviews_amount: 0,
         min_price: 0,
-    }
+    },
+    min_price_root: 0
 })
 
 export default state
